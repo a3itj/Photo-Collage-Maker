@@ -1,0 +1,175 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: none repeat scroll 0 0 #fff;
+  position: relative;
+  text-align: center;
+  font-size: 14px;
+}
+.flex-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.flex-align-center {
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.flex-row {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.flex-item {
+  oreder: 1;
+}
+.selected {
+  z-index: 100;
+}
+.pos-abs {
+  position: absolute;
+}
+.pos-rel {
+  position: relative;
+}
+#container {
+  width: 1000px;
+  height: 700px;
+  margin: 50px auto;
+  border: 1px solid #949494;
+}
+#thumbNails {
+  width: 800px;
+  padding: 10px;
+  border-right: 1px solid #949494;
+}
+#thumbNails img {
+  width: 160px;
+  height: 120px;
+  border: 1px solid #949494;
+  margin: 10px;
+}
+#uploader {
+  width: 160px;
+  height: 120px;
+  border: 1px solid #949494;
+  position: relative;
+  margin: 20px;
+  cursor: pointer;
+}
+#uploader::after {
+  content: " + UPLOAD";
+  position: absolute;
+  top: 45px;
+  left: 29px;
+  font-size: 20px;
+  color: #949494;
+  pointer-events: none;
+}
+#dropFile {
+  width: 160px;
+  height: 120px;
+}
+#workspace {
+  border-bottom: 1px solid #949494;
+  height: 540px;
+  padding: 55px;
+  overflow: hidden;
+}
+#workspace img {
+  cursor: move;
+}
+#fileUpload {
+  display: none;
+}
+.resize-container {
+  position: absolute;
+  display: inline-block;
+  cursor: move;
+  margin: 0 auto;
+}
+.resize-container.selected {
+  border: 1px solid #1359FF;
+}
+.resize-container img {
+  display: block;
+}
+.resize {
+  position: absolute;
+  display: none;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border: 1px solid #1359FF;
+  z-index: 999;
+}
+.selected .resize {
+  display: block;
+}
+.rotate {
+  top: -32px;
+  left: 50%;
+  height: 32px;
+  width: 0;
+  cursor: alias;
+}
+.rotate::before {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 1px solid #1359FF;
+  background: #fff;
+  border-radius: 50%;
+  top: -4px;
+  left: -4px;
+  content: "";
+}
+.rotate::after {
+  position: absolute;
+  background: #fff;
+  width: 6px;
+  height: 6px;
+  border: 1px solid #1359FF;
+  bottom: -4px;
+  left: -4px;
+  content: "";
+}
+.resize-nw {
+  top: -5px;
+  left: -5px;
+  cursor: nw-resize;
+}
+.resize-w {
+  top: 50%;
+  left: -5px;
+  cursor: w-resize;
+}
+.resize-sw {
+  bottom: -5px;
+  left: -5px;
+  cursor: sw-resize;
+}
+.resize-s {
+  bottom: -5px;
+  left: 50%;
+  cursor: s-resize;
+}
+.resize-ne {
+  top: -5px;
+  right: -5px;
+  cursor: ne-resize;
+}
+.resize-se {
+  bottom: -5px;
+  right: -5px;
+  cursor: se-resize;
+}
+.resize-e {
+  top: 50%;
+  right: -5px;
+  cursor: e-resize;
+}
