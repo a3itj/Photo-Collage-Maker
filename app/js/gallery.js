@@ -43,53 +43,63 @@ $(function() {
                 xpos = (e.clientX) + $(window).scrollLeft(),
                 ypos = (e.clientY) + $(window).scrollTop(),
                 $target = $(savedState.evnt.target),
-                angle = savedState.angle;
-
+                angle = savedState.angle,
+                dx, dy;
 
             // Position image differently depending on the corner dragged
-            if ($target.hasClass('resize-se')) {
-                width = xpos - savedState.left;
-                height = ypos - savedState.top;
-                left = savedState.left;
-                top = savedState.top;
-            } else if ($target.hasClass('resize-sw')) {
-                width = savedState.width - (xpos - savedState.left);
-                height = ypos - savedState.top;
-                left = xpos;
-                top = savedState.top;
-            } else if ($target.hasClass('resize-s')) {
-                width = savedState.width;
-                height = ypos - savedState.top;
-                left = savedState.left;
-                top = savedState.top;
-            } else if ($target.hasClass('resize-nw')) {
-                width = savedState.width - (xpos - savedState.left);
-                height = savedState.height - (ypos - savedState.top);
-                left = xpos;
-                top = ypos;
-            } else if ($target.hasClass('resize-w')) {
-                width = savedState.width - (xpos - savedState.left);
-                height = savedState.height;
-                left = xpos;
-                top = savedState.top;
-            } else if ($target.hasClass('resize-ne')) {
-                width = xpos - savedState.left;
-                height = savedState.height - (ypos - savedState.top);
-                left = savedState.left;
-                top = ypos;
-            } else if ($target.hasClass('resize-e')) {
-                width = xpos - savedState.left;
-                height = savedState.height;
-                left = savedState.left;
-                top = savedState.top;
-            } else if ($target.hasClass('rotate')) {
-                width = savedState.width;
-                height = savedState.height;
-                var dx = parseInt(xpos - offsetX) - savedState.width;
-                var dy = parseInt(ypos - offsetY) - savedState.height;
-                angle = Math.round(Math.atan2(dy, dx) * (180 / Math.PI));
+            var action = $target.attr("action");
+            if(action){
+            switch(action) {
+                case 'se':
+                    width = xpos - savedState.left;
+                    height = ypos - savedState.top;
+                    left = savedState.left;
+                    top = savedState.top;
+                    break;
+                case 'sw':
+                    width = savedState.width - (xpos - savedState.left);
+                    height = ypos - savedState.top;
+                    left = xpos;
+                    top = savedState.top;
+                    break;
+                case 's':
+                    width = savedState.width;
+                    height = ypos - savedState.top;
+                    left = savedState.left;
+                    top = savedState.top;
+                    break;
+                case 'nw':
+                    width = savedState.width - (xpos - savedState.left);
+                    height = savedState.height - (ypos - savedState.top);
+                    left = xpos;
+                    top = ypos;
+                    break;
+                case 'w':
+                    width = savedState.width - (xpos - savedState.left);
+                    height = savedState.height;
+                    left = xpos;
+                    top = savedState.top;
+                    break;
+                case 'ne':
+                    width = xpos - savedState.left;
+                    height = savedState.height - (ypos - savedState.top);
+                    left = savedState.left;
+                    top = ypos;
+                    break;
+                case 'e':
+                    width = xpos - savedState.left;
+                    height = savedState.height;
+                    left = savedState.left;
+                    top = savedState.top;
+                    break;
+                case 'r':
+                    width = savedState.width;
+                    height = savedState.height;
+                    dx = parseInt(xpos - offsetX) - savedState.width;
+                    dy = parseInt(ypos - offsetY) - savedState.height;
+                    angle = Math.round(Math.atan2(dy, dx) * (180 / Math.PI));
+                    break;
             }
-
             var throttled = _.throttle(function(e) {
                 resizeImage(width, height, angle);
                 // Without this Firefox will not re-calculate the the image dimensions until drag end
@@ -100,6 +110,7 @@ $(function() {
             }, 250)
 
             throttled();
+            }
         }
 
         function resizeImage(width, height, angle) {
@@ -257,14 +268,14 @@ $(function() {
             //data.addClass("");
             workspace.append(cloned);
             $(cloned).wrap('<div class="resize-container drag pos-abs" id="resizeContainer-' + id + '"></div>')
-                .before('<span class="resize rotate"></span>')
-                .before('<span class="resize resize-nw"></span>')
-                .before('<span class="resize resize-w"></span>')
-                .before('<span class="resize resize-ne"></span>')
-                .before('<span class="resize resize-e"></span>')
-                .after('<span class="resize resize-se"></span>')
-                .after('<span class="resize resize-sw"></span>')
-                .after('<span class="resize resize-s"></span>');
+                .before('<span class="resize rotate" action="r"></span>')
+                .before('<span class="resize resize-nw" action="nw"></span>')
+                .before('<span class="resize resize-w" action="w"></span>')
+                .before('<span class="resize resize-ne" action="ne"></span>')
+                .before('<span class="resize resize-e" action="e"></span>')
+                .after('<span class="resize resize-se" action="se"></span>')
+                .after('<span class="resize resize-sw" action="sw"></span>')
+                .after('<span class="resize resize-s" action="s"></span>');
 
         });
 
